@@ -16,8 +16,9 @@ public:
 		ofSetVerticalSync(false);
 		ofBackground(127);
 		
-		in_image.loadImage("lonerider2.jpg");
-		
+		in_image.load("/Users/alptugan/oF/assets/test.jpg");
+        ofSetWindowShape(in_image.getWidth(), in_image.getHeight()*2);
+        
 		out_fbo.allocate(in_image.getWidth(), in_image.getHeight());
 	}
 	
@@ -26,12 +27,13 @@ public:
 		float s = ofMap(ofGetMouseX(), 0, ofGetWidth(), 0, 200, true);
 		blur.setRadius(s);
 		
-		blur.process(in_image.getTextureReference(), out_fbo);
+		blur.process(in_image.getTexture(), out_fbo);
 	}
 	
 	void draw()
 	{
 		out_fbo.draw(0, 0);
+        in_image.draw(0, in_image.getHeight());
 		
 		stringstream ss;
 		ss << "fps: " << ofToString(ofGetFrameRate(), 2) << endl;
